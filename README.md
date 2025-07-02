@@ -50,7 +50,6 @@ Antes de iniciar, certifique-se de ter as seguintes ferramentas instaladas:
 - **Node.js** (versão 18 ou superior)
 - **npm** ou **yarn**
 - **Ionic CLI**
-- **Angular CLI**
 
 ### Instalação das Ferramentas
 
@@ -67,8 +66,8 @@ npm install -g @ionic/cli
 ### 1. Clonar o Repositório
 
 ```bash
-git clone <url-do-repositorio>
-cd trabalho-m3
+git clone https://github.com/MatheusHMafra/trabalho-m3-caca-tesouro.git
+cd trabalho-m3-caca-tesouro
 ```
 
 ### 2. Instalar Dependências
@@ -176,16 +175,6 @@ private univaliLocations: TreasureLocation[] = [
     isCompleted: false
   }
 ];
-```
-
-#### Ajustar Tolerância de Distância
-
-```typescript
-// Em home.page.ts
-canCheckLocation(): boolean {
-  // Alterar valor para ajustar tolerância
-  return distance <= 5; // metros
-}
 ```
 
 ## 📊 Funcionalidades Técnicas
@@ -300,7 +289,7 @@ console.log('Debug:', objeto);
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está sob a licença Creative Commons. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ## 👥 Equipe
 
