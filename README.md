@@ -83,6 +83,18 @@ npm install
 ionic serve
 ```
 
+ou
+
+```bash
+ng serve
+```
+
+ou
+
+```bash
+npx -y ng serve
+```
+
 ### 4. Executar em Dispositivo Móvel
 
 ```bash
