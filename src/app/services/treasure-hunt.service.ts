@@ -42,8 +42,8 @@ export class TreasureHuntService {
     {
       id: 1,
       name: 'Biblioteca Central',
-      latitude: -26.914625,
-      longitude: -48.662810,
+      latitude: -26.914746110990,
+      longitude: -48.662801619573,
       clue: 'Em um lugar silencioso onde o conhecimento mora, milhares de histórias aguardam quem explora.',
       hint: 'É o coração do saber acadêmico',
       description: 'Biblioteca Central da Univali',
@@ -52,8 +52,8 @@ export class TreasureHuntService {
     {
       id: 2,
       name: 'Reitoria',
-      latitude: -26.914350,
-      longitude: -48.662950,
+      latitude: -26.914527000439,
+      longitude: -48.6623710312343,
       clue: 'Onde as decisões importantes são tomadas, e o futuro da universidade é moldado.',
       hint: 'Centro administrativo principal',
       description: 'Prédio da Reitoria',
@@ -62,8 +62,8 @@ export class TreasureHuntService {
     {
       id: 3,
       name: 'Laboratório de Informática',
-      latitude: -26.914120,
-      longitude: -48.662480,
+      latitude: -26.914793812635015,
+      longitude: -48.66186452710039,
       clue: 'Códigos e algoritmos aqui ganham vida, onde bits e bytes se transformam em magia.',
       hint: 'Onde os programadores nascem',
       description: 'Laboratório de Informática',
@@ -72,8 +72,8 @@ export class TreasureHuntService {
     {
       id: 4,
       name: 'Quadra Esportiva',
-      latitude: -26.915280,
-      longitude: -48.663150,
+      latitude: -26.915669498631438,
+      longitude: -48.66281798935713,
       clue: 'Suor e esforço se misturam aqui, onde o corpo e a mente se fortalecem.',
       hint: 'Local para atividades físicas',
       description: 'Quadra Poliesportiva',
@@ -82,8 +82,8 @@ export class TreasureHuntService {
     {
       id: 5,
       name: 'Cantina Universitária',
-      latitude: -26.914850,
-      longitude: -48.662650,
+      latitude: -26.9145784325116,
+      longitude: -48.66167383465906,
       clue: 'O aroma delicioso paira no ar, onde a fome encontra seu final.',
       hint: 'Onde todos se reúnem para refeições',
       description: 'Cantina Central',
@@ -92,8 +92,8 @@ export class TreasureHuntService {
     {
       id: 6,
       name: 'Auditório Principal',
-      latitude: -26.914480,
-      longitude: -48.662890,
+      latitude: -26.915152278415206,
+      longitude: -48.66324387213246,
       clue: 'Onde grandes ideias ecoam e apresentações ganham vida, palco de conhecimento e cultura.',
       hint: 'Local de eventos e palestras',
       description: 'Auditório Principal',
@@ -102,8 +102,8 @@ export class TreasureHuntService {
     {
       id: 7,
       name: 'Estacionamento Principal',
-      latitude: -26.913950,
-      longitude: -48.662200,
+      latitude: -26.91804075602041,
+      longitude: -48.666441131742566,
       clue: 'Onde ferraduras de ferro descansam em fileiras organizadas, aguardando o retorno de seus donos.',
       hint: 'Local onde veículos ficam estacionados',
       description: 'Estacionamento Central',
@@ -111,12 +111,12 @@ export class TreasureHuntService {
     },
     {
       id: 8,
-      name: 'Praça Central',
+      name: 'Praça Central da Tecnologia',
       latitude: -26.914750,
       longitude: -48.662750,
-      clue: 'No coração do campus, onde estudantes se encontram e a vida acadêmica pulsa.',
-      hint: 'Centro de convivência ao ar livre',
-      description: 'Praça Central do Campus',
+      clue: 'No coração da área da tecnologia do campus, onde estudantes se encontram e a vida acadêmica pulsa.',
+      hint: 'Centro de convivência da tecnologia ao ar livre',
+      description: 'Praça Central da Tecnologia',
       isCompleted: false
     }
   ];
