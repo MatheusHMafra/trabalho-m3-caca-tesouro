@@ -1,27 +1,301 @@
-#container {
-  text-align: center;
+// Game Setup Styles
+.game-setup {
+  padding: 16px;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  .welcome-section {
+    text-align: center;
+    margin-bottom: 24px;
+    
+    ion-icon {
+      margin-bottom: 16px;
+    }
+    
+    h1 {
+      color: var(--ion-color-primary);
+      margin-bottom: 8px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    
+    p {
+      color: var(--ion-color-medium);
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 0 auto;
+      max-width: 300px;
+    }
+  }
+
+  .start-button {
+    margin-top: 16px;
+    font-weight: bold;
+  }
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+// Game Active Styles
+.game-active {
+  padding: 16px;
+
+  .player-info {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+
+      ion-icon {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .clue-text {
+    font-size: 18px;
+    font-style: italic;
+    color: var(--ion-color-primary);
+    text-align: center;
+    margin: 16px 0;
+    padding: 16px;
+    background: var(--ion-color-primary-tint);
+    border-radius: 8px;
+    border-left: 4px solid var(--ion-color-primary);
+  }
+
+  .hint-section {
+    margin-top: 16px;
+    padding: 12px;
+    background: var(--ion-color-warning-tint);
+    border-radius: 8px;
+    border-left: 4px solid var(--ion-color-warning);
+
+    p {
+      margin: 0;
+      color: var(--ion-color-warning-shade);
+    }
+  }
+
+  .location-status {
+    .location-loading {
+      text-align: center;
+      padding: 20px;
+
+      ion-spinner {
+        margin-bottom: 12px;
+      }
+
+      p {
+        color: var(--ion-color-medium);
+        margin: 0;
+      }
+    }
+  }
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+// Game Completed Styles
+.game-completed {
+  padding: 16px;
 
-  color: #8c8c8c;
+  .completion-celebration {
+    text-align: center;
+    margin-bottom: 24px;
+    
+    ion-icon {
+      margin-bottom: 16px;
+    }
+    
+    h1 {
+      color: var(--ion-color-warning);
+      margin-bottom: 8px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    
+    p {
+      color: var(--ion-color-success);
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
 
-  margin: 0;
+  .final-stats {
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 16px;
+      font-weight: 500;
+
+      ion-icon {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .play-again-button {
+    margin-top: 20px;
+    font-weight: bold;
+  }
 }
 
-#container a {
-  text-decoration: none;
+// Map Styles
+.map-container {
+  padding: 16px;
+
+  .map {
+    height: 400px;
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+}
+
+// Desktop Map Styles
+.desktop-map-container {
+  padding: 16px;
+
+  .desktop-map {
+    height: 500px;
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border: 2px solid var(--ion-color-primary);
+  }
+
+  .map-legend {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 12px;
+    background: var(--ion-color-light);
+    border-radius: 8px;
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+
+      .legend-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 10px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// General Card Styling
+ion-card {
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+
+  ion-card-header {
+    ion-card-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+}
+
+// Progress Bar Customization
+ion-progress-bar {
+  height: 8px;
+  border-radius: 4px;
+}
+
+// Button Customizations
+ion-button {
+  font-weight: 500;
+  
+  &[fill="outline"] {
+    --border-width: 2px;
+  }
+}
+
+// Responsive Design
+@media (min-width: 768px) {
+  .game-setup,
+  .game-active,
+  .game-completed,
+  .map-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  .desktop-map-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+
+    .desktop-map {
+      height: 600px;
+    }
+  }
+
+  .player-info {
+    justify-content: space-around;
+  }
+
+  .clue-text {
+    font-size: 20px;
+    padding: 20px;
+  }
+
+  .map {
+    height: 500px;
+  }
+
+  // Layout para desktop - duas colunas
+  .game-setup {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+
+    .welcome-section {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .game-active {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+
+    .player-info {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+// Dark mode adjustments
+@media (prefers-color-scheme: dark) {
+  .clue-text {
+    background: rgba(var(--ion-color-primary-rgb), 0.2);
+  }
+  
+  .hint-section {
+    background: rgba(var(--ion-color-warning-rgb), 0.2);
+  }
 }

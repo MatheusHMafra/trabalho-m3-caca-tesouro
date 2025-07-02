@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Caça ao Tesouro Univali
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,235 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Caça ao Tesouro</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <!-- Game Setup -->
+  <div *ngIf="!gameState.isStarted && gameState.currentLocationIndex === 0" class="game-setup">
+    <div class="welcome-section">
+      <ion-icon name="map" size="large" color="primary"></ion-icon>
+      <h1>Bem-vindo à Caça ao Tesouro da Univali!</h1>
+      <p>Siga as pistas e encontre os locais secretos no campus. Use o GPS para confirmar sua localização!</p>
+    </div>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Configurar Jogo</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Seu Nome</ion-label>
+          <ion-input [(ngModel)]="playerName" placeholder="Digite seu nome"></ion-input>
+        </ion-item>
+        
+        <ion-button expand="block" (click)="startGame()" [disabled]="!playerName.trim()" class="start-button">
+          <ion-icon name="play" slot="start"></ion-icon>
+          Iniciar Caça ao Tesouro
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="desktop" slot="start"></ion-icon>
+          Visualização Completa
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p *ngIf="!isDesktop">No computador, você pode ver o mapa completo e planejar sua estratégia!</p>
+        <p *ngIf="isDesktop">Você está usando um computador! Aproveite o mapa completo para planejar sua estratégia.</p>
+        <ion-button expand="block" fill="outline" (click)="toggleMap()">
+          <ion-icon name="map" slot="start"></ion-icon>
+          {{ showMap ? 'Ocultar' : 'Ver' }} Mapa Completo
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Desktop Map Always Visible -->
+    <div *ngIf="isDesktop" class="desktop-map-container">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            <ion-icon name="map" slot="start"></ion-icon>
+            Mapa Estratégico da Caça ao Tesouro
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <div id="desktop-map" class="desktop-map"></div>
+          <div class="map-legend">
+            <div class="legend-item">
+              <div class="legend-icon" style="background-color: red;">1</div>
+              <span>Local Atual</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-icon" style="background-color: orange;">2</div>
+              <span>Próximos Locais</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-icon" style="background-color: green;">✓</div>
+              <span>Concluídos</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-icon" style="background-color: blue;">👤</div>
+              <span>Sua Localização</span>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <!-- Game in Progress -->
+  <div *ngIf="gameState.isStarted" class="game-active">
+    <!-- Player Info -->
+    <ion-card>
+      <ion-card-content>
+        <div class="player-info">
+          <div class="info-item">
+            <ion-icon name="person" color="primary"></ion-icon>
+            <span>{{ gameState.playerName }}</span>
+          </div>
+          <div class="info-item">
+            <ion-icon name="trophy" color="warning"></ion-icon>
+            <span>{{ gameState.score }} pontos</span>
+          </div>
+          <div class="info-item">
+            <ion-icon name="time" color="success"></ion-icon>
+            <span>{{ getElapsedTime() }}</span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Current Location Progress -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          Progresso: {{ gameState.currentLocationIndex + 1 }} / {{ totalLocations }}
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-progress-bar [value]="getProgress()"></ion-progress-bar>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Current Clue -->
+    <ion-card *ngIf="currentLocation">
+      <ion-card-header>
+        <ion-card-title color="primary">
+          <ion-icon name="search" slot="start"></ion-icon>
+          Pista Atual
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="clue-text">{{ currentLocation.clue }}</p>
+        <ion-button fill="outline" (click)="showHint = !showHint">
+          <ion-icon name="help" slot="start"></ion-icon>
+          {{ showHint ? 'Ocultar' : 'Ver' }} Dica
+        </ion-button>
+        <div *ngIf="showHint" class="hint-section">
+          <p><strong>Dica:</strong> {{ currentLocation.hint }}</p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Location Status -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="location" slot="start"></ion-icon>
+          Sua Localização
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="location-status">
+          <div *ngIf="!currentPosition" class="location-loading">
+            <ion-spinner></ion-spinner>
+            <p>Obtendo sua localização...</p>
+          </div>
+          
+          <div *ngIf="currentPosition && currentLocation">
+            <p><strong>Distância do objetivo:</strong> {{ getDistanceToTarget() }}m</p>
+            <ion-button 
+              expand="block" 
+              (click)="checkLocation()" 
+              [disabled]="!canCheckLocation()"
+              [color]="canCheckLocation() ? 'success' : 'medium'">
+              <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+              {{ canCheckLocation() ? 'Confirmar Localização' : 'Chegue mais perto (< 5m)' }}
+            </ion-button>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Debug/Simulation Controls (para desenvolvimento) -->
+    <ion-card *ngIf="isDebugMode">
+      <ion-card-header>
+        <ion-card-title color="warning">Debug Mode</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button expand="block" fill="outline" (click)="simulateCurrentLocation()">
+          Simular Localização Atual
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Game Completed -->
+  <div *ngIf="!gameState.isStarted && gameState.currentLocationIndex > 0" class="game-completed">
+    <div class="completion-celebration">
+      <ion-icon name="trophy" size="large" color="warning"></ion-icon>
+      <h1>Parabéns, {{ gameState.playerName }}!</h1>
+      <p>Você completou a caça ao tesouro!</p>
+    </div>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Resultados Finais</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="final-stats">
+          <div class="stat-item">
+            <ion-icon name="time" color="primary"></ion-icon>
+            <span>Tempo Total: {{ formatTime(gameState.totalTime) }}</span>
+          </div>
+          <div class="stat-item">
+            <ion-icon name="trophy" color="warning"></ion-icon>
+            <span>Pontuação: {{ gameState.score }}</span>
+          </div>
+          <div class="stat-item">
+            <ion-icon name="location" color="success"></ion-icon>
+            <span>Locais Encontrados: {{ gameState.currentLocationIndex }}</span>
+          </div>
+        </div>
+        
+        <ion-button expand="block" (click)="resetGame()" class="play-again-button">
+          <ion-icon name="refresh" slot="start"></ion-icon>
+          Jogar Novamente
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Map View -->
+  <div *ngIf="showMap" class="map-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="map" slot="start"></ion-icon>
+          Mapa da Caça ao Tesouro
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div id="map" class="map"></div>
+        <ion-button expand="block" fill="outline" (click)="showMap = false">
+          <ion-icon name="close" slot="start"></ion-icon>
+          Fechar Mapa
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>
