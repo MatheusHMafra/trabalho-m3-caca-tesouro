@@ -293,6 +293,9 @@ Este projeto está sob a licença Creative Commons. Veja o arquivo [LICENSE](LIC
 
 ## 👥 Equipe
 
+- **Matheus Mafra** - Desenvolvedor Principal
+- **Bruno Dias** - Desenvolvedor Colaborador
+
 Desenvolvido como projeto acadêmico para a disciplina de Dispositivos Móveis da Univali.
 
 ---
